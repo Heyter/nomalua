@@ -7,7 +7,6 @@ function NOMALUA.ParseSmallKey( key )
 end
 
 function NOMALUA.AddLuaFiles( luaFilesTable, dir, recurse, root )
-	
 	if not file.IsDir(dir, "GAME") then
 		return luaFilesTable
 	end

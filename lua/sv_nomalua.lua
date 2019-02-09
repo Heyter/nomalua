@@ -171,30 +171,29 @@ concommand.Add( "nomalua_scan", function( ply )
 	end
 end )
 
-concommand.Add( "nomalua", function( ply, cmd, args )
+concommand.Add("nomalua", function(ply, _, args)
 	if IsValid(ply) and not ply:IsSuperAdmin() then
-		ply:PrintMessage(HUD_PRINTCONSOLE, "[Nomalua] Only superadmins or console can launch Nomalua")
-	else
-		if (args[1] == "scan") then
-			NOMALUA.StartScan(ply)
-		elseif (args[1] == "dumpfile") then
-			NOMALUA.DumpFile(ply, args[2])
-		elseif (args[1] == "whitelist") then
-			NOMALUA.ShowWhitelist(ply)
-		elseif (args[1] == "lastscan") then
-			NOMALUA.OutputResults(ply)
-		elseif (args[1] == "addwl") then
-			if (#args > 2) then
-				NOMALUA.AddWhiteListItem2(ply,args[2],tonumber(args[3]), args[4])
-			else
-				NOMALUA.AddWhiteListItem(ply,tonumber(args[2]))
-			end
-		elseif (args[1] == "delwl") then
-			NOMALUA.DelWhiteListItem(ply,tonumber(args[2]))
-		end
-		
+		return ply:PrintMessage(HUD_PRINTCONSOLE, "[Nomalua] Only superadmins or console can launch a Nomalua scan")
 	end
-end )
+	
+	if (args[1] == "scan") then
+		NOMALUA.StartScan(ply)
+	elseif (args[1] == "dumpfile") then
+		NOMALUA.DumpFile(ply, args[2] or 'nomalua/nomalua_dumpfile_'..os.date('%Y-%m-%d %H:%M:%S', os.time()))
+	elseif (args[1] == "whitelist") then
+		NOMALUA.ShowWhitelist(ply)
+	elseif (args[1] == "lastscan") then
+		NOMALUA.OutputResults(ply)
+	elseif (args[1] == "addwl") then
+		if (#args > 2) then
+			NOMALUA.AddWhiteListItem2(ply,args[2],tonumber(args[3]), args[4])
+		else
+			NOMALUA.AddWhiteListItem(ply,tonumber(args[2]))
+		end
+	elseif (args[1] == "delwl") then
+		NOMALUA.DelWhiteListItem(ply,tonumber(args[2]))
+	end
+end)
 
 
 
